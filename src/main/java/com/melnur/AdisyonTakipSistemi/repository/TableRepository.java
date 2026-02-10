@@ -12,5 +12,7 @@ public interface TableRepository extends JpaRepository<TableEntity, Long> {
 
     Optional<TableEntity> findByTableNumber(int tableNumber);
 
-    List<TableEntity> findByStatus(TableEntity.TableStatus status);
+    List<TableEntity> findByTableStatus(TableEntity.TableStatus tableStatus);
+
+    boolean existsByTableNumber(int tableNumber);
 }

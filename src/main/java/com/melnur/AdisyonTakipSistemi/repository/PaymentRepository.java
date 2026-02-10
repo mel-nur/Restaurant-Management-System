@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface PaymentRepository extends JpaRepository<PaymentEntity, Long> {
 
-    List<PaymentEntity> findByPaymentTypye(PaymentEntity.PaymentType paymentType);
+    List<PaymentEntity> findByPaymentType(PaymentEntity.PaymentType paymentType);
 }

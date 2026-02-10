@@ -12,10 +12,15 @@ import java.util.Optional;
 @Repository
 public interface OrderRepository extends JpaRepository<OrderEntity, Long> {
 
-    Optional<OrderEntity> findByTableIdAndStatus(Long tableId, OrderEntity.OrderStatus status);
+    Optional<OrderEntity> findByTableIdAndOrderStatus(Long tableId, OrderEntity.OrderStatus orderStatus);
 
-    List<OrderEntity> findByStatus(String status);
+    List<OrderEntity> findByOrderStatus(OrderEntity.OrderStatus orderStatus);
 
-    @Query("SELECT SUM(o.totalPrice) FROM OrderEntity o WHERE o.status = 'PAID'")
+    @Query("""
+    SELECT COALESCE(SUM(o.totalPrice), 0)
+    FROM OrderEntity o
+    WHERE o.orderStatus = com.melnur.AdisyonTakipSistemi.entity.OrderEntity$OrderStatus.PAID
+""")
     BigDecimal getTotalRevenue();
+
 }

@@ -19,7 +19,7 @@ public class OrderEntity extends BaseEntity{
 
     @ManyToOne
     @JoinColumn(name = "table_id", nullable = false)
-    private TableEntity tableEntity;
+    private TableEntity tableId;
 
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;

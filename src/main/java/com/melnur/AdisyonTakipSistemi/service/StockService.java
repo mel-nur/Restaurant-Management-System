@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class StockService {
+
     private final StockRepository stockRepository;
 
     public StockEntity createStock(StockEntity stock){
