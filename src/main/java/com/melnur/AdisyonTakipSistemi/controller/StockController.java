@@ -1,7 +1,9 @@
 package com.melnur.AdisyonTakipSistemi.controller;
 
 import com.melnur.AdisyonTakipSistemi.entity.StockEntity;
-import com.melnur.AdisyonTakipSistemi.service.StockService;
+import com.melnur.AdisyonTakipSistemi.service.impl.StockServiceImpl;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -11,13 +13,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/stocks")
+@Tag(name = "Stocks", description = "Stok yönetim işlemleri için API uç noktaları")
 public class StockController {
-    private final StockService stockService;
+    private final StockServiceImpl stockServiceImpl;
 
     //Stock oluştur
     @PostMapping("/create")
+    @Operation(summary = "Yeni stok oluştur")
     public StockEntity createStock(@RequestBody StockEntity stock){
-        return stockService.createStock(stock);
+        return stockServiceImpl.createStock(stock);
     }
 }
 

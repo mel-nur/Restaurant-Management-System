@@ -1,13 +1,14 @@
 package com.melnur.AdisyonTakipSistemi.repository;
 
 import com.melnur.AdisyonTakipSistemi.entity.PaymentEntity;
+import com.melnur.AdisyonTakipSistemi.enums.PaymentType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface PaymentRepository extends JpaRepository<PaymentEntity, Long> {
+public interface IPaymentRepository extends JpaRepository<PaymentEntity, Long> {
 
-    List<PaymentEntity> findByPaymentType(PaymentEntity.PaymentType paymentType);
+    List<PaymentEntity> findByPaymentType(PaymentType paymentType);
 }

@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import com.melnur.AdisyonTakipSistemi.enums.OrderStatus;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -29,10 +30,4 @@ public class OrderEntity extends BaseEntity{
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItemEntity> orderItems;
 
-
-    public enum OrderStatus{
-        OPEN,
-        PAID,
-        CANCELED
-    }
 }

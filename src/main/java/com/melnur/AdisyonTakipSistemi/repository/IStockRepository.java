@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface StockRepository extends JpaRepository<StockEntity, Long> {
+public interface IStockRepository extends JpaRepository<StockEntity, Long> {
 
     Optional<StockEntity> findByProduct(ProductEntity product);
 

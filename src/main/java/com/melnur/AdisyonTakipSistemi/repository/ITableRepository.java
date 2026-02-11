@@ -1,6 +1,7 @@
 package com.melnur.AdisyonTakipSistemi.repository;
 
 import com.melnur.AdisyonTakipSistemi.entity.TableEntity;
+import com.melnur.AdisyonTakipSistemi.enums.TableStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -8,11 +9,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface TableRepository extends JpaRepository<TableEntity, Long> {
+public interface ITableRepository extends JpaRepository<TableEntity, Long> {
 
     Optional<TableEntity> findByTableNumber(int tableNumber);
 
-    List<TableEntity> findByTableStatus(TableEntity.TableStatus tableStatus);
+    List<TableEntity> findByTableStatus(TableStatus tableStatus);
 
     boolean existsByTableNumber(int tableNumber);
 }

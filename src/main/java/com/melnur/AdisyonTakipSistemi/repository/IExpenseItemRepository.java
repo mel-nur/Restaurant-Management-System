@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ExpenseItemRepository extends JpaRepository<ExpenseItemEntity, Long> {
+public interface IExpenseItemRepository extends JpaRepository<ExpenseItemEntity, Long> {
 
     List<ExpenseItemEntity> findByExpense(ExpenseEntity expense);
 }
