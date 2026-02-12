@@ -1,12 +1,25 @@
 package com.melnur.AdisyonTakipSistemi.service;
 
+import com.melnur.AdisyonTakipSistemi.dto.request.order.OrderCreateRequest;
+import com.melnur.AdisyonTakipSistemi.dto.response.order.OrderResponse;
 import com.melnur.AdisyonTakipSistemi.entity.OrderEntity;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 public interface OrderService {
 
-    OrderEntity openOrder(Long tableId);
+    OrderResponse createOrder(OrderCreateRequest request);
 
-    void addItemOrder(Long orderId, Long productId, int quantity);
+    void cancelOrder(Long orderId);
 
-    void closeOrder(Long orderId, Long tableId);
+    void pay(Long orderId);
+
+    OrderResponse getOrderById(Long id);
+
+    OrderResponse updateOrderStatus(Long id, String status);
+
+    void deleteOrder(Long id);
+
+    List<OrderResponse> getAllOrders();
 }

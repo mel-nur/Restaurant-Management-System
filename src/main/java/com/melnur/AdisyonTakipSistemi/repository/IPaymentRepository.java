@@ -10,5 +10,6 @@ import java.util.List;
 @Repository
 public interface IPaymentRepository extends JpaRepository<PaymentEntity, Long> {
 
+    List<PaymentEntity> findByOrderId(Long orderId);
     List<PaymentEntity> findByPaymentType(PaymentType paymentType);
 }

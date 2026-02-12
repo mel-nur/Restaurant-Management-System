@@ -31,4 +31,9 @@ public class StockEntity extends  BaseEntity{
     @NotNull
     @Min(0)
     private int criticalLevel;
+
+    public boolean isCritical() {
+        return quantity <= criticalLevel;
+    }
+
 }

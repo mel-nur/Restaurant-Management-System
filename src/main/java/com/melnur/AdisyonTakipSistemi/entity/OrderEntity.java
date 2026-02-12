@@ -1,5 +1,6 @@
 package com.melnur.AdisyonTakipSistemi.entity;
 
+import com.melnur.AdisyonTakipSistemi.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,14 +21,20 @@ public class OrderEntity extends BaseEntity{
 
     @ManyToOne
     @JoinColumn(name = "table_id", nullable = false)
-    private TableEntity tableId;
+    private TableEntity table;
 
     @Enumerated(EnumType.STRING)
     private OrderStatus orderStatus;
 
     private BigDecimal totalPrice;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "order",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true)
     private List<OrderItemEntity> orderItems;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private UserEntity userRole;
 
 }

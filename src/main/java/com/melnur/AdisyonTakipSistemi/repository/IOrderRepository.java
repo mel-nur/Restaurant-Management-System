@@ -13,7 +13,7 @@ import java.util.Optional;
 @Repository
 public interface IOrderRepository extends JpaRepository<OrderEntity, Long> {
 
-    Optional<OrderEntity> findByTableIdAndOrderStatus(Long tableId, OrderStatus orderStatus);
+    Optional<OrderEntity> findByTable_IdAndOrderStatus(Long tableId, OrderStatus orderStatus);
 
     List<OrderEntity> findByOrderStatus(OrderStatus orderStatus);
 
@@ -23,5 +23,10 @@ public interface IOrderRepository extends JpaRepository<OrderEntity, Long> {
     WHERE o.orderStatus = com.melnur.AdisyonTakipSistemi.enums.OrderStatus.PAID
 """)
     BigDecimal getTotalRevenue();
+
+    boolean existsByTableIdAndOrderStatus(Long tableId, OrderStatus status);
+
+    boolean existsByTableIdAndOrderStatusIn(Long tableId, List<OrderStatus> statuses);
+
 
 }

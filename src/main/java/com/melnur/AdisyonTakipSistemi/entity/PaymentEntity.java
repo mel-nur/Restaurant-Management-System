@@ -1,5 +1,6 @@
 package com.melnur.AdisyonTakipSistemi.entity;
 
+import com.melnur.AdisyonTakipSistemi.enums.PaymentStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,5 +26,8 @@ public class PaymentEntity extends BaseEntity{
 
     @Column(nullable = false, precision = 19, scale = 2)
     private BigDecimal amount;
+
+    @Enumerated(EnumType.STRING)
+    private PaymentStatus paymentStatus;
 
 }

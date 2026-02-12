@@ -7,6 +7,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -20,6 +21,8 @@ public class ExpenseCreateRequest {
 
     @NotNull
     private ExpenseCategory expenseCategory;
+
+    private BigDecimal amount;
 
     @NotNull
     private ExpenseType expenseType;

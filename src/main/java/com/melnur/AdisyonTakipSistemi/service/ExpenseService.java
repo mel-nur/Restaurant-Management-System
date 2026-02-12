@@ -1,14 +1,23 @@
 package com.melnur.AdisyonTakipSistemi.service;
 
+import com.melnur.AdisyonTakipSistemi.dto.request.expense.ExpenseCreateRequest;
+import com.melnur.AdisyonTakipSistemi.dto.response.expense.ExpenseResponse;
 import com.melnur.AdisyonTakipSistemi.entity.ExpenseEntity;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public interface ExpenseService {
 
-    ExpenseEntity createExpense(String description);
+    ExpenseResponse createExpense(ExpenseCreateRequest request);
 
-    void addExpenseItem(Long expenseId, Long productId, int quantity, BigDecimal unitCost);
+    ExpenseResponse getExpenseById(Long id);
+
+    List<ExpenseResponse> getAllExpenses();
+
+    ExpenseResponse updateExpense(Long id, ExpenseCreateRequest request);
+
+    void deleteExpense(Long id);
 
 
 }
