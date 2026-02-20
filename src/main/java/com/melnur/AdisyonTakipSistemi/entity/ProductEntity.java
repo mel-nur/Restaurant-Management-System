@@ -1,9 +1,7 @@
 package com.melnur.AdisyonTakipSistemi.entity;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import com.melnur.AdisyonTakipSistemi.enums.StockTypeStatus;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -24,8 +22,10 @@ public class ProductEntity extends BaseEntity{
     @NotBlank
     private String name;
 
-    @NotBlank
-    private String category;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id", nullable = false)
+    @NotNull
+    private CategoryEntity category;
 
     @NotNull
     private BigDecimal salePrice;
@@ -35,4 +35,7 @@ public class ProductEntity extends BaseEntity{
 
     @OneToOne(mappedBy = "product", cascade = CascadeType.ALL)
     private StockEntity stock;
+
+    @Enumerated(EnumType.STRING)
+    private StockTypeStatus stockTypeStatus;
 }

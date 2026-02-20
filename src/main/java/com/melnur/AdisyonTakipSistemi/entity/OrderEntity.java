@@ -1,21 +1,20 @@
 package com.melnur.AdisyonTakipSistemi.entity;
 
-import com.melnur.AdisyonTakipSistemi.enums.UserRole;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import com.melnur.AdisyonTakipSistemi.enums.OrderStatus;
 
 import java.math.BigDecimal;
 import java.util.List;
+import com.melnur.AdisyonTakipSistemi.entity.BaseEntity;
+import lombok.Setter;
+
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 @Table(name = "orders")
 public class OrderEntity extends BaseEntity{
 
@@ -35,6 +34,5 @@ public class OrderEntity extends BaseEntity{
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private UserEntity userRole;
-
+    private UserEntity user; // userRole yerine user demek kafa karışıklığını önler.
 }

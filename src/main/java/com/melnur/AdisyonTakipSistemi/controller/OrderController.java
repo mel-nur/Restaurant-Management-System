@@ -29,7 +29,7 @@ public class OrderController {
     }
 
     @Operation(summary = "Id'ye göre sipariş getir")
-    @GetMapping
+    @GetMapping("/{id}")
     public ResponseEntity<OrderResponse> getOrderById(@PathVariable Long orderId){
         OrderResponse response = orderServiceImpl.getOrderById(orderId);
         return ResponseEntity.ok(orderServiceImpl.getOrderById(orderId));

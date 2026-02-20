@@ -16,16 +16,12 @@ import lombok.Setter;
 @Table(name = "tables")
 public class TableEntity extends BaseEntity{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
     @NotNull
     @Column(unique = true, nullable = false)
     private int tableNumber;
 
     @NotNull
     @Enumerated(EnumType.STRING)
-    private TableStatus tableStatus;
+    private TableStatus tableStatus = TableStatus.valueOf("CLOSED");
 
 }

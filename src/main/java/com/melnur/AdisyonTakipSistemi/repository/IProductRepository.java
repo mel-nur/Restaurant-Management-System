@@ -12,7 +12,7 @@ public interface IProductRepository extends JpaRepository<ProductEntity, Long> {
 
     List<ProductEntity> findByCategory(String category);
 
-    List<ProductEntity> findByCategoryId(Long categoryId);
+    //List<ProductEntity> findByCategoryId(Long categoryId);
 
     Optional<ProductEntity> findByName(String name);
 }

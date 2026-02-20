@@ -1,0 +1,968 @@
+{
+  "info": {
+    "name": "AdisyonTakipSistemi API",
+    "description": "Comprehensive Postman Collection for AdisyonTakipSistemi - Restaurant Management System",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:7000"
+    },
+    {
+      "key": "id",
+      "value": "1"
+    },
+    {
+      "key": "productId",
+      "value": "1"
+    },
+    {
+      "key": "orderId",
+      "value": "1"
+    },
+    {
+      "key": "categoryId",
+      "value": "1"
+    },
+    {
+      "key": "tableNumber",
+      "value": "1"
+    }
+  ],
+  "item": [
+    {
+      "name": "Expenses",
+      "description": "Expense Management Endpoints",
+      "item": [
+        {
+          "name": "Create Expense",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/expenses",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "7000",
+              "path": [
+                "api",
+                "expenses"
+              ]
+            },
+            "description": "Create Expense",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"description\": \"Office supplies\",\n  \"amount\": 150.0,\n  \"category\": \"SUPPLIES\",\n  \"type\": \"OPERATIONAL\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get All Expenses",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/expenses",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "7000",
+              "path": [
+                "api",
+                "expenses"
+              ]
+            },
+            "description": "Get All Expenses"
+          }
+        },
+        {
+          "name": "Get Expense By ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/expenses/{{id}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "7000",
+              "path": [
+                "api",
+                "expenses",
+                "{{id}}"
+              ]
+            },
+            "description": "Get Expense By ID"
+          }
+        },
+        {
+          "name": "Update Expense",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/expenses/{{id}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "7000",
+              "path": [
+                "api",
+                "expenses",
+                "{{id}}"
+              ]
+            },
+            "description": "Update Expense",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"description\": \"Office supplies updated\",\n  \"amount\": 200.0,\n  \"category\": \"SUPPLIES\",\n  \"type\": \"OPERATIONAL\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete Expense",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/expenses/{{id}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "7000",
+              "path": [
+                "api",
+                "expenses",
+                "{{id}}"
+              ]
+            },
+            "description": "Delete Expense"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Orders",
+      "description": "Order Management Endpoints",
+      "item": [
+        {
+          "name": "Create Order",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/orders",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "7000",
+              "path": [
+                "api",
+                "orders"
+              ]
+            },
+            "description": "Create Order",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tableId\": 1,\n  \"items\": [\n    {\n      \"productId\": 1,\n      \"quantity\": 2\n    }\n  ]\n}"
+            }
+          }
+        },
+        {
+          "name": "Get All Orders",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/orders",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "7000",
+              "path": [
+                "api",
+                "orders"
+              ]
+            },
+            "description": "Get All Orders"
+          }
+        },
+        {
+          "name": "Cancel Order",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/orders/{{id}}/cancel",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "7000",
+              "path": [
+                "api",
+                "orders",
+                "{{id}}",
+                "cancel"
+              ]
+            },
+            "description": "Cancel Order"
+          }
+        },
+        {
+          "name": "Pay Order",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/orders/{{id}}/pay",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "7000",
+              "path": [
+                "api",
+                "orders",
+                "{{id}}",
+                "pay"
+              ]
+            },
+            "description": "Pay Order",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": 250.0,\n  \"paymentType\": \"CASH\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Update Order Status",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/orders/{{id}}/status",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "7000",
+              "path": [
+                "api",
+                "orders",
+                "{{id}}",
+                "status"
+              ]
+            },
+            "description": "Update Order Status",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"COMPLETED\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Delete Order",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/orders/{{id}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "7000",
+              "path": [
+                "api",
+                "orders",
+                "{{id}}"
+              ]
+            },
+            "description": "Delete Order"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Payments",
+      "description": "Payment Management Endpoints",
+      "item": [
+        {
+          "name": "Create Payment",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/payments",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "7000",
+              "path": [
+                "api",
+                "payments"
+              ]
+            },
+            "description": "Create Payment",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"orderId\": 1,\n  \"amount\": 250.0,\n  \"paymentType\": \"CASH\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get All Payments",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/payments",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "7000",
+              "path": [
+                "api",
+                "payments"
+              ]
+            },
+            "description": "Get All Payments"
+          }
+        },
+        {
+          "name": "Get Payment By ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/payments/{{id}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "7000",
+              "path": [
+                "api",
+                "payments",
+                "{{id}}"
+              ]
+            },
+            "description": "Get Payment By ID"
+          }
+        },
+        {
+          "name": "Get Payments By Order",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/payments/order/{{orderId}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "7000",
+              "path": [
+                "api",
+                "payments",
+                "order",
+                "{{orderId}}"
+              ]
+            },
+            "description": "Get Payments By Order"
+          }
+        },
+        {
+          "name": "Delete Payment",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/payments/{{id}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "7000",
+              "path": [
+                "api",
+                "payments",
+                "{{id}}"
+              ]
+            },
+            "description": "Delete Payment"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Products",
+      "description": "Product Management Endpoints",
+      "item": [
+        {
+          "name": "Create Product",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/products",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "7000",
+              "path": [
+                "api",
+                "products"
+              ]
+            },
+            "description": "Create Product",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Coffee\",\n  \"price\": 25.0,\n  \"categoryId\": 1\n}"
+            }
+          }
+        },
+        {
+          "name": "Update Product",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/products/{{id}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "7000",
+              "path": [
+                "api",
+                "products",
+                "{{id}}"
+              ]
+            },
+            "description": "Update Product",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Espresso\",\n  \"price\": 30.0\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Product By ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/products/{{id}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "7000",
+              "path": [
+                "api",
+                "products",
+                "{{id}}"
+              ]
+            },
+            "description": "Get Product By ID"
+          }
+        },
+        {
+          "name": "Get All Products",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/products/listele",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "7000",
+              "path": [
+                "api",
+                "products",
+                "listele"
+              ]
+            },
+            "description": "Get All Products"
+          }
+        },
+        {
+          "name": "Get Products By Category",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/products/category/{{categoryId}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "7000",
+              "path": [
+                "api",
+                "products",
+                "category",
+                "{{categoryId}}"
+              ]
+            },
+            "description": "Get Products By Category"
+          }
+        },
+        {
+          "name": "Delete Product",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/products/{{id}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "7000",
+              "path": [
+                "api",
+                "products",
+                "{{id}}"
+              ]
+            },
+            "description": "Delete Product"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Stocks",
+      "description": "Stock Management Endpoints",
+      "item": [
+        {
+          "name": "Get All Stocks",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/stocks",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "7000",
+              "path": [
+                "api",
+                "stocks"
+              ]
+            },
+            "description": "Get All Stocks"
+          }
+        },
+        {
+          "name": "Get Stock By Product ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/stocks/product/{{productId}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "7000",
+              "path": [
+                "api",
+                "stocks",
+                "product",
+                "{{productId}}"
+              ]
+            },
+            "description": "Get Stock By Product ID"
+          }
+        },
+        {
+          "name": "Increase Stock",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/stocks/increase/{{productId}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "7000",
+              "path": [
+                "api",
+                "stocks",
+                "increase",
+                "{{productId}}"
+              ]
+            },
+            "description": "Increase Stock",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"quantity\": 10\n}"
+            }
+          }
+        },
+        {
+          "name": "Decrease Stock",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/stocks/decrease/{{productId}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "7000",
+              "path": [
+                "api",
+                "stocks",
+                "decrease",
+                "{{productId}}"
+              ]
+            },
+            "description": "Decrease Stock",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"quantity\": 5\n}"
+            }
+          }
+        },
+        {
+          "name": "Update Critical Level",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/stocks/critical/{{productId}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "7000",
+              "path": [
+                "api",
+                "stocks",
+                "critical",
+                "{{productId}}"
+              ]
+            },
+            "description": "Update Critical Level",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"criticalLevel\": 20\n}"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Tables",
+      "description": "Table Management Endpoints",
+      "item": [
+        {
+          "name": "Create Table",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/tables",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "7000",
+              "path": [
+                "api",
+                "tables"
+              ]
+            },
+            "description": "Create Table",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"tableNumber\": 5,\n  \"capacity\": 4\n}"
+            }
+          }
+        },
+        {
+          "name": "Get All Tables",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/tables",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "7000",
+              "path": [
+                "api",
+                "tables"
+              ]
+            },
+            "description": "Get All Tables"
+          }
+        },
+        {
+          "name": "Get Table By ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/tables/{{id}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "7000",
+              "path": [
+                "api",
+                "tables",
+                "{{id}}"
+              ]
+            },
+            "description": "Get Table By ID"
+          }
+        },
+        {
+          "name": "Get Table By Number",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/tables/number/{{tableNumber}}",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "7000",
+              "path": [
+                "api",
+                "tables",
+                "number",
+                "{{tableNumber}}"
+              ]
+            },
+            "description": "Get Table By Number"
+          }
+        },
+        {
+          "name": "Get Open Tables",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/tables/open",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "7000",
+              "path": [
+                "api",
+                "tables",
+                "open"
+              ]
+            },
+            "description": "Get Open Tables"
+          }
+        },
+        {
+          "name": "Get Closed Tables",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/tables/closed",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "7000",
+              "path": [
+                "api",
+                "tables",
+                "closed"
+              ]
+            },
+            "description": "Get Closed Tables"
+          }
+        },
+        {
+          "name": "Open Table",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/tables/{{id}}/open",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "7000",
+              "path": [
+                "api",
+                "tables",
+                "{{id}}",
+                "open"
+              ]
+            },
+            "description": "Open Table"
+          }
+        },
+        {
+          "name": "Close Table",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/tables/{{id}}/close",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "7000",
+              "path": [
+                "api",
+                "tables",
+                "{{id}}",
+                "close"
+              ]
+            },
+            "description": "Close Table"
+          }
+        },
+        {
+          "name": "Update Table Status",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/tables/{{id}}/status",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "7000",
+              "path": [
+                "api",
+                "tables",
+                "{{id}}",
+                "status"
+              ]
+            },
+            "description": "Update Table Status",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"OPEN\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Active Table Count",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/tables/active-count",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "7000",
+              "path": [
+                "api",
+                "tables",
+                "active-count"
+              ]
+            },
+            "description": "Get Active Table Count"
+          }
+        }
+      ]
+    }
+  ]
+}

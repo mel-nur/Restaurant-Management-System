@@ -48,8 +48,11 @@ public class TableServiceImpl implements TableService {
 
     @Override
     public TableResponse getById(Long id) {
-        return tableMapper.toResponse(_ITableRepository.findByTableId(id));
+        return _ITableRepository.findById(id)
+                .map(tableMapper::toResponse)
+                .orElseThrow(() -> new NotFoundException("Masa bulunamadı"));
     }
+
 
     @Override
     public TableResponse getByTableNumber(int tableNumber) {
@@ -77,7 +80,8 @@ public class TableServiceImpl implements TableService {
     @Transactional
     @Override
     public void openTable(Long tableId) {
-        TableEntity table = _ITableRepository.findByTableId(tableId);
+        TableEntity table = _ITableRepository.findById(tableId)
+                .orElseThrow(() -> new NotFoundException("Masa bulunamadı"));
 
         if (table.getTableStatus() == TableStatus.OPEN) {
             throw new BusinessException("Masa zaten açık");
@@ -90,7 +94,8 @@ public class TableServiceImpl implements TableService {
     @Transactional
     @Override
     public void closeTable(Long tableId) {
-        TableEntity table = _ITableRepository.findByTableId(tableId);
+        TableEntity table = _ITableRepository.findById(tableId)
+                .orElseThrow(() -> new NotFoundException("Masa bulunamadı"));
 
         if(table.getTableStatus() == TableStatus.CLOSED){
             throw new BusinessException("Masa zaten kapalı");
@@ -107,7 +112,8 @@ public class TableServiceImpl implements TableService {
     @Transactional
     @Override
     public void updateTableStatus(Long tableId, TableStatus status) {
-        TableEntity table = _ITableRepository.findByTableId(tableId);
+        TableEntity table = _ITableRepository.findById(tableId)
+                .orElseThrow(() -> new NotFoundException("Masa bulunamadı"));
         table.setTableStatus(status);
     }
 

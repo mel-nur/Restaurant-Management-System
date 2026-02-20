@@ -14,6 +14,5 @@ public interface OrderMapper {
     OrderEntity toEntity(OrderCreateRequest request);
 
     @Mapping(source = "table.id", target = "tableId")
-    @Mapping(source = "user.id", target = "userId")
     OrderResponse toResponse(OrderEntity order);
 }

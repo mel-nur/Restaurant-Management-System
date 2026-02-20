@@ -16,7 +16,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public abstract class ProductServiceImpl implements ProductService {
+public class ProductServiceImpl implements ProductService {
 
     private final IProductRepository _IProductRepository;
     private final ProductMapper productMapper;
@@ -31,6 +31,7 @@ public abstract class ProductServiceImpl implements ProductService {
 
         return productMapper.toResponse(saved);
     }
+
 
     @Transactional
     @Override
@@ -74,12 +75,15 @@ public abstract class ProductServiceImpl implements ProductService {
                 .toList();
     }
 
-    @Override
-    public List<ProductResponse> getProductsByCategory(Long categoryId) {
 
-        return _IProductRepository.findByCategoryId(categoryId)
+    @Override
+    public List<ProductResponse> getProductsByCategory(String category) {
+
+        return _IProductRepository.findByCategory(category)
                 .stream()
                 .map(productMapper::toResponse)
                 .toList();
     }
+
+
 }

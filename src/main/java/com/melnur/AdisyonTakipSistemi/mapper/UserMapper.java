@@ -9,7 +9,5 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface UserMapper {
     UserEntity toEntity(UserCreateRequest request);
-
-    @Mapping(target = "password", ignore = true)
     UserResponse toResponse(UserEntity entity);
 }

@@ -92,7 +92,8 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     public OrderResponse createOrder(OrderCreateRequest request) {
         TableEntity table = _ITableRepository.findById(request.getTableId())
-                .orElseThrow(() -> new NotFoundException("Masa Bulunamadı"));
+                .orElseThrow(() -> new NotFoundException("Masa bulunamadı")
+                );
 
         if (table.getTableStatus() == TableStatus.OCCUPIED) {
             throw new BusinessException("Masa zaten dolu");

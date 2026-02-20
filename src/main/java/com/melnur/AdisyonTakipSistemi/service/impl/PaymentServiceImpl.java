@@ -13,11 +13,13 @@ import com.melnur.AdisyonTakipSistemi.repository.IOrderRepository;
 import com.melnur.AdisyonTakipSistemi.repository.IPaymentRepository;
 import com.melnur.AdisyonTakipSistemi.service.PaymentService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.List;
 
+@Service
 @RequiredArgsConstructor
 public class PaymentServiceImpl implements PaymentService {
 

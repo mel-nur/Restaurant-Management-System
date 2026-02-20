@@ -13,7 +13,6 @@ public interface ITableRepository extends JpaRepository<TableEntity, Long> {
 
     Optional<TableEntity> findByTableNumber(int tableNumber);
 
-    TableEntity findByTableId(Long tableId);
     List<TableEntity> findByTableStatus(TableStatus tableStatus);
 
     boolean existsByTableNumber(int tableNumber);

@@ -12,8 +12,6 @@ public interface ProductService {
 
     ProductResponse createProduct(ProductCreateRequest request);
 
-    ProductResponse updateProduct(Long id, ProductCreateRequest request);
-
     ProductResponse updateProduct(Long id, ProductUpdateRequest request);
 
     void deleteProduct(Long id);
@@ -22,5 +20,5 @@ public interface ProductService {
 
     List<ProductResponse> getAllProducts();
 
-    List<ProductResponse> getProductsByCategory(Long categoryId);
+    List<ProductResponse> getProductsByCategory(String category);
 }

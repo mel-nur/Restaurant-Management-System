@@ -3,8 +3,7 @@ package com.melnur.AdisyonTakipSistemi.controller;
 import com.melnur.AdisyonTakipSistemi.dto.request.product.ProductCreateRequest;
 import com.melnur.AdisyonTakipSistemi.dto.request.product.ProductUpdateRequest;
 import com.melnur.AdisyonTakipSistemi.dto.response.product.ProductResponse;
-import com.melnur.AdisyonTakipSistemi.entity.ProductEntity;
-import com.melnur.AdisyonTakipSistemi.service.impl.ProductServiceImpl;
+import com.melnur.AdisyonTakipSistemi.service.ProductService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -20,15 +19,13 @@ import java.util.List;
 @RequestMapping("/api/products")
 @Tag(name = "Products", description = "Ürün yönetimi işlemleri")
 public class ProductController {
-    private final ProductServiceImpl productServiceImpl;
+    private final ProductService productService;
 
-    // Ürün ekle
-    @PostMapping
+    @PostMapping("/add")
     @Operation(summary = "Yeni ürün ekle")
     public ResponseEntity<ProductResponse> createProduct(
             @Valid @RequestBody ProductCreateRequest request){
-
-        ProductResponse response = productServiceImpl.createProduct(request);
+        ProductResponse response = productService.createProduct(request);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
@@ -36,36 +33,30 @@ public class ProductController {
     public ResponseEntity<ProductResponse> updateProduct(
             @PathVariable Long id,
             @Valid @RequestBody ProductUpdateRequest request) {
-
-        return ResponseEntity.ok(productServiceImpl.updateProduct(id, request));
+        return ResponseEntity.ok(productService.updateProduct(id, request));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ProductResponse> getProductById(
             @PathVariable Long id) {
-
-        return ResponseEntity.ok(productServiceImpl.getProductById(id));
+        return ResponseEntity.ok(productService.getProductById(id));
     }
 
-    // Tüm ürünleri listele
     @GetMapping("/listele")
     @Operation(summary = "Tüm ürünleri listele")
     public ResponseEntity<List<ProductResponse>> getAllProducts() {
-        return ResponseEntity.ok(productServiceImpl.getAllProducts());
+        return ResponseEntity.ok(productService.getAllProducts());
     }
 
-    @GetMapping("/category/{categoryId}")
-    public ResponseEntity<List<ProductResponse>> getByCategory(@PathVariable Long categoryId){
-        return ResponseEntity.ok(productServiceImpl.getProductsByCategory(categoryId));
+    @GetMapping("/category/{category}")
+    public ResponseEntity<List<ProductResponse>> getByCategory(@PathVariable String category){
+        return ResponseEntity.ok(productService.getProductsByCategory(category));
     }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
-        productServiceImpl.deleteProduct(id);
+        productService.deleteProduct(id);
         return ResponseEntity.noContent().build();
     }
-
-
-
 }
-
