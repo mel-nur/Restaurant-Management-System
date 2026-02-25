@@ -36,6 +36,6 @@ public class ProductEntity extends BaseEntity{
     @OneToOne(mappedBy = "product", cascade = CascadeType.ALL)
     private StockEntity stock;
 
-    @Enumerated(EnumType.STRING)
-    private StockTypeStatus stockTypeStatus;
+    @NotNull
+    private Boolean trackStock;
 }

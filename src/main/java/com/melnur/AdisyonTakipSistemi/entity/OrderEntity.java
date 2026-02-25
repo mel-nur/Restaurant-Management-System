@@ -32,7 +32,9 @@ public class OrderEntity extends BaseEntity{
             orphanRemoval = true)
     private List<OrderItemEntity> orderItems;
 
+
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private UserEntity user; // userRole yerine user demek kafa karışıklığını önler.
+
 }

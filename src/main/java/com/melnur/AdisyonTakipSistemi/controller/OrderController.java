@@ -30,9 +30,9 @@ public class OrderController {
 
     @Operation(summary = "Id'ye göre sipariş getir")
     @GetMapping("/{id}")
-    public ResponseEntity<OrderResponse> getOrderById(@PathVariable Long orderId){
-        OrderResponse response = orderServiceImpl.getOrderById(orderId);
-        return ResponseEntity.ok(orderServiceImpl.getOrderById(orderId));
+    public ResponseEntity<OrderResponse> getOrderById(@PathVariable Long id){
+        OrderResponse response = orderServiceImpl.getOrderById(id);
+        return ResponseEntity.ok(response);
     }
 
     @Operation(summary = "Tüm siparişleri getir")
@@ -43,15 +43,15 @@ public class OrderController {
 
     @Operation(summary = "Siparişi iptal et")
     @PutMapping("/{id}/cancel")
-    public ResponseEntity<Void> cancelOrder(@PathVariable Long orderId){
-        orderServiceImpl.cancelOrder(orderId);
+    public ResponseEntity<Void> cancelOrder(@PathVariable Long id){
+        orderServiceImpl.cancelOrder(id);
         return ResponseEntity.ok().build();
     }
 
     @Operation(summary = "Siparişi öde")
     @PutMapping("/{id}/pay")
-    public ResponseEntity<Void> payOrder(@PathVariable Long orderId){
-        orderServiceImpl.pay(orderId);
+    public ResponseEntity<Void> payOrder(@PathVariable Long id){
+        orderServiceImpl.pay(id);
         return ResponseEntity.ok().build();
     }
 
@@ -70,15 +70,6 @@ public class OrderController {
         orderServiceImpl.deleteOrder(id);
         return ResponseEntity.noContent().build();
     }
-
-
-
-
-
-
-
-
-
 
     /*
     // Adisyon aç (Belirli bir masa için)

@@ -35,6 +35,23 @@ public class ExpenseServiceImpl implements ExpenseService {
     @Override
     public ExpenseResponse createExpense(ExpenseCreateRequest request) {
         ExpenseEntity entity = expenseMapper.toEntity(request);
+
+        // Items'ları ekle
+        if (request.getItems() != null && !request.getItems().isEmpty()) {
+            request.getItems().forEach(itemRequest -> {
+                ProductEntity product = _IProductRepository.findById(itemRequest.getProductId())
+                        .orElseThrow(() -> new NotFoundException("Ürün bulunamadı"));
+
+                ExpenseItemEntity item = new ExpenseItemEntity();
+                item.setProduct(product);
+                item.setQuantity(itemRequest.getQuantity());
+                item.setUnitCost(itemRequest.getUnitCost());
+
+                entity.addItem(item);
+                stockServiceImpl.increaseStock(itemRequest.getProductId(), itemRequest.getQuantity());
+            });
+        }
+
         ExpenseEntity saved = _IExpenseRepository.save(entity);
         return expenseMapper.toResponse(saved);
 
@@ -59,21 +76,40 @@ public class ExpenseServiceImpl implements ExpenseService {
     @Override
     public ExpenseResponse updateExpense(Long id, ExpenseCreateRequest request) {
         ExpenseEntity entity = _IExpenseRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Expense not found"));
+                .orElseThrow(() -> new NotFoundException("Gider Bulunamadı"));
 
-        entity.setAmount(request.getAmount());
         entity.setDescription(request.getDescription());
         entity.setExpenseType(request.getExpenseType());
+        entity.setExpenseCategory(request.getExpenseCategory());
+        entity.setExpenseDate(request.getExpenseDate());
+
+        // Items sıfırla ve yeniden ekle
+        entity.getItems().clear();
+        entity.setAmount(BigDecimal.ZERO);
+
+        if (request.getItems() != null && !request.getItems().isEmpty()) {
+            request.getItems().forEach(itemRequest -> {
+                ProductEntity product = _IProductRepository.findById(itemRequest.getProductId())
+                        .orElseThrow(() -> new NotFoundException("Ürün bulunamadı"));
+
+                ExpenseItemEntity item = new ExpenseItemEntity();
+                item.setProduct(product);
+                item.setQuantity(itemRequest.getQuantity());
+                item.setUnitCost(itemRequest.getUnitCost());
+
+                entity.addItem(item);
+            });
+        }
 
         ExpenseEntity updated = _IExpenseRepository.save(entity);
-
-        return expenseMapper.toResponse(updated);    }
+        return expenseMapper.toResponse(updated);
+    }
 
     @Transactional
     @Override
     public void deleteExpense(Long id) {
         ExpenseEntity entity = _IExpenseRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Expense not found"));
+                .orElseThrow(() -> new NotFoundException("Gider bulunamadı"));
 
         _IExpenseRepository.delete(entity);
 

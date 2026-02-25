@@ -11,19 +11,9 @@ import org.mapstruct.Named;
 @Mapper(componentModel = "spring")
 public interface ProductMapper {
 
-    @Mapping(source = "category", target = "category", qualifiedByName = "stringToCategoryEntity")
+    @Mapping(target = "category", ignore = true)
     ProductEntity toEntity(ProductCreateRequest request);
 
     @Mapping(source = "category.name", target = "category")
     ProductResponse toResponse(ProductEntity entity);
-
-    @Named("stringToCategoryEntity")
-    default CategoryEntity stringToCategoryEntity(String categoryName) {
-        if (categoryName == null || categoryName.isEmpty()) {
-            return null;
-        }
-        CategoryEntity category = new CategoryEntity();
-        category.setName(categoryName);
-        return category;
-    }
 }

@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 
 @RestControllerAdvice
-public class GlobalExceptionHandler extends RuntimeException{
+public class GlobalExceptionHandler {
 
     // 🟡 Not Found Exception
     @ExceptionHandler(NotFoundException.class)

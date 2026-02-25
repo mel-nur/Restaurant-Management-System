@@ -15,5 +15,5 @@ public class TableResponse {
 
     private TableStatus tableStatus;
 
-    private LocalDateTime createdDate;
+    //private LocalDateTime createdDate;
 }

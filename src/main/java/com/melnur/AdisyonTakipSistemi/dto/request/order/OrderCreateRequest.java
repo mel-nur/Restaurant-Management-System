@@ -12,7 +12,7 @@ public class OrderCreateRequest {
     @NotNull(message = "Masa ID'si boş bırakılamaz.")
     private Long tableId;
 
-    private Long userId;
+    //private Long userId;
 
     @NotNull(message = "Sipariş kalemleri boş bırakılamaz.")
     @Valid

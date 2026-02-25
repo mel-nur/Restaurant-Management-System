@@ -12,8 +12,8 @@ public class ProductCreateRequest {
     @NotBlank(message = "Ürün adı boş olamaz")
     private String name;
 
-    @NotBlank(message = "Kategori boş olamaz")
-    private String category;
+    @NotNull(message = "Kategori ID boş olamaz")
+    private Long categoryId;
 
     @NotNull(message = "Satış fiyatı boş olamaz")
     @Positive(message = "Satış fiyatı 0'dan büyük olmalıdır")
@@ -22,4 +22,7 @@ public class ProductCreateRequest {
     @NotNull(message = "Maliyet fiyatı boş olamaz")
     @Positive(message = "Maliyet fiyatı 0'dan büyük olmalıdır")
     private BigDecimal costPrice;
+
+    @NotNull(message = "Stok takibi boş olamaz")
+    private Boolean trackStock;
 }

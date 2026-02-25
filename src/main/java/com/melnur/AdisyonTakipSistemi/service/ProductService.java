@@ -20,5 +20,5 @@ public interface ProductService {
 
     List<ProductResponse> getAllProducts();
 
-    List<ProductResponse> getProductsByCategory(String category);
+    List<ProductResponse> getProductsByCategory(Long categoryId);
 }

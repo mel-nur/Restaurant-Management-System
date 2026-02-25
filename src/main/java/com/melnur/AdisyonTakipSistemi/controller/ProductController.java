@@ -49,7 +49,7 @@ public class ProductController {
     }
 
     @GetMapping("/category/{category}")
-    public ResponseEntity<List<ProductResponse>> getByCategory(@PathVariable String category){
+    public ResponseEntity<List<ProductResponse>> getByCategory(@PathVariable Long category){
         return ResponseEntity.ok(productService.getProductsByCategory(category));
     }
 

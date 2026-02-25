@@ -2,7 +2,9 @@ package com.melnur.AdisyonTakipSistemi.controller;
 
 import com.melnur.AdisyonTakipSistemi.dto.request.category.CategoryCreateRequest;
 import com.melnur.AdisyonTakipSistemi.dto.response.category.CategoryResponse;
+import com.melnur.AdisyonTakipSistemi.dto.response.product.ProductResponse;
 import com.melnur.AdisyonTakipSistemi.service.CategoryService;
+import com.melnur.AdisyonTakipSistemi.service.ProductService;
 import com.melnur.AdisyonTakipSistemi.service.impl.CategoryServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -20,6 +22,8 @@ import java.util.List;
 @Tag(name = "Categories", description = "Kategori yönetimi işlemleri")
 public class CategoryController {
     private final CategoryServiceImpl categoryService;
+    private final ProductService productService;
+
 
     @GetMapping("/all")
     @Operation(summary = "Tüm kategorileri getir")
@@ -31,6 +35,11 @@ public class CategoryController {
     @Operation(summary = "Kategori adına göre getir")
     public ResponseEntity<CategoryResponse> getCategoryByName(@PathVariable String name){
         return ResponseEntity.ok(categoryService.getCatgoryByName(name));
+    }
+
+    @GetMapping("/category/{categoryId}")
+    public ResponseEntity<List<ProductResponse>> getByCategory(@PathVariable Long categoryId) {
+        return ResponseEntity.ok(productService.getProductsByCategory(categoryId));
     }
 
     @PostMapping
@@ -52,5 +61,6 @@ public class CategoryController {
         categoryService.deleteCategory(id);
         return ResponseEntity.noContent().build();
     }
+
 
 }

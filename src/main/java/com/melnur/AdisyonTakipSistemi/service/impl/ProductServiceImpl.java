@@ -3,12 +3,15 @@ package com.melnur.AdisyonTakipSistemi.service.impl;
 import com.melnur.AdisyonTakipSistemi.dto.request.product.ProductCreateRequest;
 import com.melnur.AdisyonTakipSistemi.dto.request.product.ProductUpdateRequest;
 import com.melnur.AdisyonTakipSistemi.dto.response.product.ProductResponse;
+import com.melnur.AdisyonTakipSistemi.entity.CategoryEntity;
 import com.melnur.AdisyonTakipSistemi.entity.ProductEntity;
+import com.melnur.AdisyonTakipSistemi.entity.StockEntity;
 import com.melnur.AdisyonTakipSistemi.exception.NotFoundException;
 import com.melnur.AdisyonTakipSistemi.mapper.ProductMapper;
 import com.melnur.AdisyonTakipSistemi.repository.IProductRepository;
 import com.melnur.AdisyonTakipSistemi.service.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.query.criteria.JpaRoot;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,6 +30,17 @@ public class ProductServiceImpl implements ProductService {
 
         ProductEntity product = productMapper.toEntity(request);
 
+        CategoryEntity category = new CategoryEntity();
+        category.setId(request.getCategoryId());
+        product.setCategory(category);
+
+        if(Boolean.TRUE.equals(request.getTrackStock())){
+            StockEntity stok = new StockEntity();
+            stok.setProduct(product);
+            stok.setQuantity(0);
+            stok.setCriticalLevel(0);
+            product.setStock(stok);
+        }
         ProductEntity saved = _IProductRepository.save(product);
 
         return productMapper.toResponse(saved);
@@ -77,9 +91,9 @@ public class ProductServiceImpl implements ProductService {
 
 
     @Override
-    public List<ProductResponse> getProductsByCategory(String category) {
+    public List<ProductResponse> getProductsByCategory(Long categoryId) {
 
-        return _IProductRepository.findByCategory(category)
+        return _IProductRepository.findByCategoryId(categoryId)
                 .stream()
                 .map(productMapper::toResponse)
                 .toList();

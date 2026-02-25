@@ -99,8 +99,12 @@ public class OrderServiceImpl implements OrderService {
             throw new BusinessException("Masa zaten dolu");
         }
 
+        UserEntity user = _IUserRepository.findById(1L)
+                .orElseThrow(() -> new NotFoundException("Varsayılan kullanıcı bulunamadı"));
+
         OrderEntity order = new OrderEntity();
         order.setTable(table);
+        order.setUser(user); // ✅ EKLE
         order.setOrderStatus(OrderStatus.OPEN);
 
         List<OrderItemEntity> orderItems = new ArrayList<>();
@@ -110,15 +114,16 @@ public class OrderServiceImpl implements OrderService {
             ProductEntity product = _IProductRepository.findById(itemRequest.getProductId())
                     .orElseThrow(() -> new NotFoundException("Ürün bulunamadı"));
 
-            StockEntity stock = _IStockRepository.findByProductId(product.getId())
-                    .orElseThrow(() -> new NotFoundException("Stok bulunamadı"));
+            StockEntity stock = _IStockRepository.findByProductId(product.getId()).orElse(null);
 
-            if (stock.getQuantity() < itemRequest.getQuantity()) {
-                throw new BusinessException("Yetersiz stok : " + product.getName());
+            if(stock != null){
+                if (stock.getQuantity() < itemRequest.getQuantity()) {
+                    throw new BusinessException("Yetersiz stok : " + product.getName());
+                }
+                stock.setQuantity(stock.getQuantity()-itemRequest.getQuantity());
+                _IStockRepository.save(stock);
             }
 
-            stock.setQuantity(stock.getQuantity() - itemRequest.getQuantity());
-            _IStockRepository.save(stock);
 
             BigDecimal itemTotal = product.getSalePrice().multiply(BigDecimal.valueOf(itemRequest.getQuantity()));
 
@@ -134,7 +139,6 @@ public class OrderServiceImpl implements OrderService {
         }
         order.setOrderItems(orderItems);
         order.setTotalPrice(totalPrice);
-
         table.setTableStatus(TableStatus.OCCUPIED);
 
         OrderEntity savedOrder = _IOrderRepository.save(order);
@@ -158,19 +162,22 @@ public class OrderServiceImpl implements OrderService {
         for (OrderItemEntity item : order.getOrderItems()) {
 
             StockEntity stock = _IStockRepository.findByProductId(
-                            item.getProduct().getId())
-                    .orElseThrow(() -> new NotFoundException("Stok bulunamadı"));
+                            item.getProduct().getId()).orElse(null);
+            if(stock != null){
+                // stok geri ekle
+                stock.setQuantity(stock.getQuantity() + item.getQuantity());
+                _IStockRepository.save(stock);
+            }
 
-            // stok geri ekle
-            stock.setQuantity(stock.getQuantity() + item.getQuantity());
         }
 
         order.setOrderStatus(OrderStatus.CANCELLED);
+        _IOrderRepository.save(order);
 
         // masa boşalt
         TableEntity table = order.getTable();
         table.setTableStatus(TableStatus.AVAILABLE);
-
+        _ITableRepository.save(table);
     }
 
     @Transactional
@@ -188,10 +195,12 @@ public class OrderServiceImpl implements OrderService {
         }
 
         order.setOrderStatus(OrderStatus.PAID);
+        _IOrderRepository.save(order);
 
         // masa boşalt
         TableEntity table = order.getTable();
         table.setTableStatus(TableStatus.AVAILABLE);
+        _ITableRepository.save(table);
     }
 
     @Override
@@ -216,8 +225,22 @@ public class OrderServiceImpl implements OrderService {
         OrderEntity order = _IOrderRepository.findById(id)
                 .orElseThrow(() -> new BusinessException("Sipariş Bulunamadı"));
 
-        order.setOrderStatus(OrderStatus.valueOf(status.toUpperCase()));
-        return  orderMapper.toResponse(_IOrderRepository.save(order));
+        OrderStatus newStatus = OrderStatus.valueOf(status.toUpperCase());
+
+        // Eğer CANCELLED durumuna geçiliyorsa stok geri ekle
+        if (newStatus == OrderStatus.CANCELLED && order.getOrderStatus() != OrderStatus.CANCELLED) {
+            for (OrderItemEntity item : order.getOrderItems()) {
+                StockEntity stock = _IStockRepository.findByProductId(
+                        item.getProduct().getId()).orElse(null);
+                if (stock != null) {
+                    stock.setQuantity(stock.getQuantity() + item.getQuantity());
+                    _IStockRepository.save(stock);
+                }
+            }
+        }
+
+        order.setOrderStatus(newStatus);
+        return orderMapper.toResponse(_IOrderRepository.save(order));
 
     }
 
@@ -225,6 +248,15 @@ public class OrderServiceImpl implements OrderService {
     public void deleteOrder(Long id) {
         OrderEntity order = _IOrderRepository.findById(id).
                 orElseThrow(() -> new NotFoundException("Sipariş bulunamadı"));
+        for(OrderItemEntity item : order.getOrderItems()){
+            StockEntity stock = _IStockRepository.findByProductId(
+                    item.getProduct().getId()).orElse(null);
+            if(stock != null){
+                // stok geri ekle
+                stock.setQuantity(stock.getQuantity() + item.getQuantity());
+                _IStockRepository.save(stock);
+            }
+        }
         _IOrderRepository.delete(order);
     }
 
