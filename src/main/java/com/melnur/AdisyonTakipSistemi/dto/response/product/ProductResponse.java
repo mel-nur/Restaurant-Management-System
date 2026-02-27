@@ -24,4 +24,6 @@ public class ProductResponse {
     private StockResponse stock;
 
     private LocalDateTime createdDate;
+
+    private boolean trackStock;
 }

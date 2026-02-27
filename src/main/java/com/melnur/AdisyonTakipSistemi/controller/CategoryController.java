@@ -42,7 +42,7 @@ public class CategoryController {
         return ResponseEntity.ok(productService.getProductsByCategory(categoryId));
     }
 
-    @PostMapping
+    @PostMapping("/add")
     @Operation(summary = "Yeni kategori oluştur")
     public ResponseEntity<CategoryResponse> createCategory(@Valid @RequestBody CategoryCreateRequest request){
         CategoryResponse response = categoryService.createCategory(request);
@@ -55,12 +55,10 @@ public class CategoryController {
         return ResponseEntity.ok(categoryService.updateCategory(id, request));
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/delete/{id}")
     @Operation(summary = "Kategoriyi sil")
     public ResponseEntity<Void> deleteCategory(@PathVariable Long id){
         categoryService.deleteCategory(id);
         return ResponseEntity.noContent().build();
     }
-
-
 }
